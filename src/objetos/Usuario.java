@@ -1,15 +1,15 @@
 package objetos;
 
 public class Usuario {
-    private int id;
+    private String id;
     private String nombre;
     private String apellido;
-    private int edad;
-    private char genero;
-    private int telefono;
+    private String edad;
+    private String genero;
+    private String telefono;
     private String email;
 
-    public Usuario(int id, String nombre, String apellido, int edad, char genero, int telefono, String email){
+    public Usuario(String id, String nombre, String apellido, String edad, String genero, String telefono, String email){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,7 +19,7 @@ public class Usuario {
         this.email = email;
     }
 
-    public void setId(int id){
+    public void setId(String id){
         this.id = id;
     }
     public void setNombre(String nombre){
@@ -28,13 +28,13 @@ public class Usuario {
     public void setApellido(String apellido){
         this.apellido = apellido;
     }
-    public void setEdad(int edad){
+    public void setEdad(String edad){
         this.edad = edad;
     }
-    public void setGenero(char genero){
+    public void setGenero(String genero){
         this.genero = genero;
     }
-    public void setTelefono(int telefono){
+    public void setTelefono(String telefono){
         this.telefono = telefono;
     }
     public void setEmail(String email){
@@ -42,7 +42,7 @@ public class Usuario {
     }
 
 
-    public int getId(){
+    public String getId(){
         return this.id;
     }
     public String getNombre(){
@@ -51,13 +51,13 @@ public class Usuario {
     public String getApellido(){
         return this.apellido;
     }
-    public int getEdad(){
+    public String getEdad(){
         return this.edad;
     }
-    public char getGenero(){
+    public String getGenero(){
         return this.genero;
     }
-    public int getTelefono(){
+    public String getTelefono(){
         return this.telefono;
     }
     public String getEmail(){
@@ -65,7 +65,7 @@ public class Usuario {
     }
 
 
-    public String toString(){
-        return id+";"+nombre+";"+apellido+";"+edad+";"+genero+";"+telefono+";"+email;
+    public String[] toArray(){
+        return new String[] {id,nombre,apellido,edad,genero,telefono,email};
     }
 }
