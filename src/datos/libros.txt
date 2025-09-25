@@ -1,0 +1,29 @@
+1;El alquimista;Inspiracional;Paulo Coelho;6;10
+2;1984;Distopía;George Orwell;2;8
+3;Cien años de soledad;Realismo mágico;Gabriel García Márquez;5;12
+4;Orgullo y prejuicio;Romance;Jane Austen;4;7
+5;El nombre del viento;Fantasía;Patrick Rothfuss;1;9
+6;Los juegos del hambre;Juvenil;Suzanne Collins;2;15
+7;El código Da Vinci;Thriller;Dan Brown;3;6
+8;Harry Potter y la piedra filosofal;Fantasía;J.K. Rowling;1;20
+9;Drácula;Terror;Bram Stoker;2;5
+10;Don Quijote de la Mancha;Clásico;Miguel de Cervantes;7;4
+11;La sombra del viento;Misterio;Carlos Ruiz Zafón;3;10
+12;El principito;Fábula;Antoine de Saint-Exupéry;1;18
+13;Crimen y castigo;Drama;Fiódor Dostoyevski;2;6
+14;Rayuela;Experimental;Julio Cortázar;1;3
+15;Matar a un ruiseñor;Legal;Harper Lee;1;7
+16;La ladrona de libros;Histórico;Markus Zusak;1;11
+17;El retrato de Dorian Gray;Filosófico;Oscar Wilde;2;5
+18;Frankenstein;Ciencia Ficción;Mary Shelley;1;6
+19;La isla del tesoro;Aventura;Robert Louis Stevenson;3;9
+20;El señor de los anillos;Fantasía;J.R.R. Tolkien;3;14
+21;Las aventuras de Sherlock Holmes;Detectivesco;Arthur Conan Doyle;2;10
+22;El perfume;Psicológico;Patrick Süskind;1;4
+23;Fahrenheit 451;Distopía;Ray Bradbury;1;8
+24;Ensayo sobre la ceguera;Filosófico;José Saramago;1;5
+25;La tregua;Romance;Mario Benedetti;1;6
+26;It;Terror;Stephen King;1;7
+27;El psicoanalista;Thriller;John Katzenbach;1;9
+28;El juego de Ender;Ciencia Ficción;Orson Scott Card;1;10
+29;La;ficcion;ulises;2;10
