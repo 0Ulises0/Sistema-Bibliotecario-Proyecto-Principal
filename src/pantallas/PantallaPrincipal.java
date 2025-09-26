@@ -8,10 +8,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -51,7 +50,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
         //Agregando los contenedores
         menuBar();
 
@@ -68,6 +66,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor norte con BorderLayout.NORTH
     private void contenedorNorte(){
         contenedorOpcionesNorte = new JPanel();
+        contenedorOpcionesNorte.setBackground(Color.decode("#D4D4D4"));
         contenedorOpcionesNorte.setLayout(new GridBagLayout());
         componentesContenedorNorte();
         add(contenedorOpcionesNorte,BorderLayout.NORTH);
@@ -75,6 +74,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor este con BorderLayout.EAST
     private void contenedorEste(){
         contenedorOpcionesEste = new JPanel();
+        contenedorOpcionesEste.setBackground(Color.decode("#FAFAF9"));
         contenedorOpcionesEste.setLayout(new GridBagLayout());
         componentesContenedorEste();
         add(contenedorOpcionesEste,BorderLayout.EAST);
@@ -82,6 +82,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor oeste con BorderLayout.WEST
     private void contenedorOeste (){
         contenedorOpcionesOeste = new JPanel();
+        contenedorOpcionesOeste.setBackground(Color.decode("#FAFAF9"));
         contenedorOpcionesOeste.setLayout(new GridBagLayout());
         componentesContenedorOeste();
         add(contenedorOpcionesOeste, BorderLayout.WEST);
@@ -89,6 +90,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor sur con BorderLayout.SOUTH
     private void contenedorSur(){
         contenedorOpcionesSur = new JPanel();
+        contenedorOpcionesSur.setBackground(Color.decode("#FAFAF9"));
         contenedorOpcionesSur.setLayout(new GridBagLayout());
         componentesContenedorSur();
         add(contenedorOpcionesSur, BorderLayout.SOUTH);
@@ -96,6 +98,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor centro con BorderLayout.CENTER
     private void contenedorCentro(){
         contenedorOpcionesCentro = new JPanel();
+        contenedorOpcionesCentro.setBackground(Color.decode("#FAFAF9"));
         contenedorOpcionesCentro.setLayout(new GridBagLayout());
         componentesContenedorCentro();
         add(contenedorOpcionesCentro, BorderLayout.CENTER);
@@ -108,23 +111,13 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Componentes del contenedor norte se rige con GridBagLayout
     private void componentesContenedorNorte(){
         GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        separador1 = new JLabel("------------------------------------------------------------------------------------");
-        contenedorOpcionesNorte.add(separador1, gbc);
         
         // Configurar el JLabel del titulo
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 0;
         titulo = new JLabel("Sistema Bibliotecario");
         titulo.setFont(new Font("Arial", Font.PLAIN, 36)); //Establecer tamano y fuente al JLabel
         contenedorOpcionesNorte.add(titulo, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        separador2 = new JLabel("------------------------------------------------------------------------------------");
-        contenedorOpcionesNorte.add(separador2, gbc);
 
     }
     //-Componentes del contenedor oeste se rige con GridBagLayout
@@ -173,17 +166,17 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        ulises = new JLabel("Ulises Papachoris Camacho");
+        ulises = new JLabel("Castillo Pimienta Ilse Marianne");
         contenedorOpcionesEste.add(ulises, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        ilse = new JLabel("Ilse Marianne Castillo Pimienta");
+        ilse = new JLabel("Molina Beltran Berenice Darlin");
         contenedorOpcionesEste.add(ilse, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        darlin = new JLabel("Darlin ////");
+        darlin = new JLabel("Papachoris Camacho Ulises");
         contenedorOpcionesEste.add(darlin, gbc);
     }
     //-Componentes del contenedor sur se rige con GridBagLayout
@@ -199,6 +192,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         //Creando la barra de menu
         JMBmenuBar = new JMenuBar();
         JMBmenuBar.setLayout(new FlowLayout());
+        JMBmenuBar.setBackground(Color.decode("#D4D4D4"));
 
         //Creando menu de opciones
         JMopciones = new JMenu("Opciones");
@@ -218,6 +212,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         JMopciones.add(JMIvisualizarTablas);
         //Agregar opciones al menui principal
         JMopciones.addSeparator();
+        JMopciones.setBackground(Color.decode("#FAFAF9"));
         JMBmenuBar.add(JMopciones);
 
         //Agregando acerca
