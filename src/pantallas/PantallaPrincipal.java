@@ -25,7 +25,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     private static final long serialVersionUID = 1L;
 
     private JLabel ulises,ilse,darlin,integrantes;
-    private JLabel separador1,titulo,separador2;
+    private JLabel titulo;
     private JButton prestamoDevolucion, registroLibros, registroUsuarios, visualizarTablas;
     private JPanel contenedorOpcionesOeste, contenedorOpcionesNorte, contenedorOpcionesEste, contenedorOpcionesSur, contenedorOpcionesCentro;
 
@@ -34,6 +34,10 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     JMenu JMopciones;
     JMenuItem JMIacerdaDe,JMIsalir;
     JMenuItem JMIprestamoDevolucion, JMIregistroLibros, JMIregistroUsuarios, JMIvisualizarTablas;
+
+    String colorPaneles = "#F6CFFF";
+    String colorTitulo = "#DAB2FF";
+    String colorMenu = "#C4B4FF";
 
     //Creando las otras pantallas de las opciones disponibles
     PantallaPrestamoDevolucionLibros ppdl = new PantallaPrestamoDevolucionLibros("Prestamos Y Devoluciones");
@@ -60,13 +64,11 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         contenedorCentro();
     }
 
-
     //Metodos para crear los contenedores
-    
     //-Contenedor norte con BorderLayout.NORTH
     private void contenedorNorte(){
         contenedorOpcionesNorte = new JPanel();
-        contenedorOpcionesNorte.setBackground(Color.decode("#D4D4D4"));
+        contenedorOpcionesNorte.setBackground(Color.decode(colorTitulo));
         contenedorOpcionesNorte.setLayout(new GridBagLayout());
         componentesContenedorNorte();
         add(contenedorOpcionesNorte,BorderLayout.NORTH);
@@ -74,7 +76,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor este con BorderLayout.EAST
     private void contenedorEste(){
         contenedorOpcionesEste = new JPanel();
-        contenedorOpcionesEste.setBackground(Color.decode("#FAFAF9"));
+        contenedorOpcionesEste.setBackground(Color.decode(colorPaneles));
         contenedorOpcionesEste.setLayout(new GridBagLayout());
         componentesContenedorEste();
         add(contenedorOpcionesEste,BorderLayout.EAST);
@@ -82,7 +84,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor oeste con BorderLayout.WEST
     private void contenedorOeste (){
         contenedorOpcionesOeste = new JPanel();
-        contenedorOpcionesOeste.setBackground(Color.decode("#FAFAF9"));
+        contenedorOpcionesOeste.setBackground(Color.decode(colorPaneles));
         contenedorOpcionesOeste.setLayout(new GridBagLayout());
         componentesContenedorOeste();
         add(contenedorOpcionesOeste, BorderLayout.WEST);
@@ -90,7 +92,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor sur con BorderLayout.SOUTH
     private void contenedorSur(){
         contenedorOpcionesSur = new JPanel();
-        contenedorOpcionesSur.setBackground(Color.decode("#FAFAF9"));
+        contenedorOpcionesSur.setBackground(Color.decode(colorPaneles));
         contenedorOpcionesSur.setLayout(new GridBagLayout());
         componentesContenedorSur();
         add(contenedorOpcionesSur, BorderLayout.SOUTH);
@@ -98,7 +100,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor centro con BorderLayout.CENTER
     private void contenedorCentro(){
         contenedorOpcionesCentro = new JPanel();
-        contenedorOpcionesCentro.setBackground(Color.decode("#FAFAF9"));
+        contenedorOpcionesCentro.setBackground(Color.decode(colorPaneles));
         contenedorOpcionesCentro.setLayout(new GridBagLayout());
         componentesContenedorCentro();
         add(contenedorOpcionesCentro, BorderLayout.CENTER);
@@ -107,7 +109,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     
     
     //Metodos para agregar componentes a los contenedores
-
     //-Componentes del contenedor norte se rige con GridBagLayout
     private void componentesContenedorNorte(){
         GridBagConstraints gbc = new GridBagConstraints();
@@ -192,7 +193,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         //Creando la barra de menu
         JMBmenuBar = new JMenuBar();
         JMBmenuBar.setLayout(new FlowLayout());
-        JMBmenuBar.setBackground(Color.decode("#D4D4D4"));
+        JMBmenuBar.setBackground(Color.decode(colorMenu));
 
         //Creando menu de opciones
         JMopciones = new JMenu("Opciones");
@@ -226,11 +227,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         JMIsalir.addActionListener(this);
         JMBmenuBar.add(JMIsalir);
 
-        setJMenuBar(JMBmenuBar);
-
-        
-        
-        
+        setJMenuBar(JMBmenuBar); 
     }
 
     //Hacer visibles las pantallas de las opciones
