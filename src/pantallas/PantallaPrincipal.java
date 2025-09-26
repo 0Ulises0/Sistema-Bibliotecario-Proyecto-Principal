@@ -3,9 +3,16 @@ package pantallas;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,9 +25,16 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
     private static final long serialVersionUID = 1L;
 
-    private JLabel titulo;
+    private JLabel ulises,ilse,darlin,integrantes;
+    private JLabel separador1,titulo,separador2;
     private JButton prestamoDevolucion, registroLibros, registroUsuarios, visualizarTablas;
     private JPanel contenedorOpcionesOeste, contenedorOpcionesNorte, contenedorOpcionesEste, contenedorOpcionesSur, contenedorOpcionesCentro;
+
+
+    JMenuBar JMBmenuBar;
+    JMenu JMopciones;
+    JMenuItem JMIacerdaDe,JMIsalir;
+    JMenuItem JMIprestamoDevolucion, JMIregistroLibros, JMIregistroUsuarios, JMIvisualizarTablas;
 
     //Creando las otras pantallas de las opciones disponibles
     PantallaPrestamoDevolucionLibros ppdl = new PantallaPrestamoDevolucionLibros("Prestamos Y Devoluciones");
@@ -39,6 +53,8 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
 
         //Agregando los contenedores
+        menuBar();
+
         contenedorNorte();
         contenedorEste();
         contenedorOeste();
@@ -91,24 +107,84 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
     //-Componentes del contenedor norte se rige con GridBagLayout
     private void componentesContenedorNorte(){
-        
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        separador1 = new JLabel("------------------------------------------------------------------------------------");
+        contenedorOpcionesNorte.add(separador1, gbc);
+        
+        // Configurar el JLabel del titulo
+        gbc.gridx = 1;
+        gbc.gridy = 0;
         titulo = new JLabel("Sistema Bibliotecario");
         titulo.setFont(new Font("Arial", Font.PLAIN, 36)); //Establecer tamano y fuente al JLabel
-        contenedorOpcionesNorte.add(titulo);
+        contenedorOpcionesNorte.add(titulo, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        separador2 = new JLabel("------------------------------------------------------------------------------------");
+        contenedorOpcionesNorte.add(separador2, gbc);
 
     }
     //-Componentes del contenedor oeste se rige con GridBagLayout
     private void componentesContenedorOeste(){
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
+        // Configurar los botones de las opciones
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        
+        gbc.gridx = 0;
+		gbc.gridy = 0;
+        prestamoDevolucion = new JButton("Prestamo y Devoluciones");
+        prestamoDevolucion.addActionListener(this);
+        contenedorOpcionesOeste.add(prestamoDevolucion, gbc);
+
+        gbc.gridx = 0;
+		gbc.gridy = 1;
+        registroLibros = new JButton("Registro Libros");
+        registroLibros.addActionListener(this);
+        contenedorOpcionesOeste.add(registroLibros, gbc);
+
+        gbc.gridx = 0;
+		gbc.gridy = 2;
+        registroUsuarios = new JButton("Registro Usuarios");
+        registroUsuarios.addActionListener(this);
+        contenedorOpcionesOeste.add(registroUsuarios, gbc);
+
+        gbc.gridx = 0;
+		gbc.gridy = 3;
+        visualizarTablas = new JButton("Visualizar Tablas");
+        visualizarTablas.addActionListener(this);
+        contenedorOpcionesOeste.add(visualizarTablas, gbc);
     }
     //-Componentes del contenedor este se rige con GridBagLayout
     private void componentesContenedorEste(){
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10,10,10,10);
 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        integrantes = new JLabel("Integrantes:");
+        integrantes.setFont(new Font("Arial", Font.PLAIN, 24)); //Establecer
+        contenedorOpcionesEste.add(integrantes, gbc);
+
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        ulises = new JLabel("Ulises Papachoris Camacho");
+        contenedorOpcionesEste.add(ulises, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        ilse = new JLabel("Ilse Marianne Castillo Pimienta");
+        contenedorOpcionesEste.add(ilse, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        darlin = new JLabel("Darlin ////");
+        contenedorOpcionesEste.add(darlin, gbc);
     }
     //-Componentes del contenedor sur se rige con GridBagLayout
     private void componentesContenedorSur(){
@@ -116,41 +192,51 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     }
     //-Componentes del contenedor centro se rige con GridBagLayout
     private void componentesContenedorCentro(){
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.insets = new Insets(10,10,10,10);
-
-
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-
-        gbc.gridx = 0;
-		gbc.gridy = 1;
-        prestamoDevolucion = new JButton("Prestamo y Devoluciones");
-        prestamoDevolucion.addActionListener(this);
-        contenedorOpcionesCentro.add(prestamoDevolucion, gbc);
-
-        gbc.gridx = 0;
-		gbc.gridy = 2;
-        registroLibros = new JButton("Registro Libros");
-        registroLibros.addActionListener(this);
-        contenedorOpcionesCentro.add(registroLibros, gbc);
-
-        gbc.gridx = 0;
-		gbc.gridy = 3;
-        registroUsuarios = new JButton("Registro Usuarios");
-        registroUsuarios.addActionListener(this);
-        contenedorOpcionesCentro.add(registroUsuarios, gbc);
-
-        gbc.gridx = 0;
-		gbc.gridy = 4;
-        visualizarTablas = new JButton("Visualizar Tablas");
-        visualizarTablas.addActionListener(this);
-        contenedorOpcionesCentro.add(visualizarTablas, gbc);
+        
     }
 
+    private void menuBar(){
+        //Creando la barra de menu
+        JMBmenuBar = new JMenuBar();
+        JMBmenuBar.setLayout(new FlowLayout());
 
+        //Creando menu de opciones
+        JMopciones = new JMenu("Opciones");
+
+        //Agregar opciones del Menu Opciones
+        JMIprestamoDevolucion = new JMenuItem("Prestamo y Devoluciones");
+        JMIprestamoDevolucion.addActionListener(this);
+        JMopciones.add(JMIprestamoDevolucion);
+        JMIregistroLibros = new JMenuItem("Registro Libros");
+        JMIregistroLibros.addActionListener(this);
+        JMopciones.add(JMIregistroLibros);
+        JMIregistroUsuarios = new JMenuItem("Registro Usuarios");
+        JMIregistroUsuarios.addActionListener(this);
+        JMopciones.add(JMIregistroUsuarios);
+        JMIvisualizarTablas = new JMenuItem("Visualizar Tablas");
+        JMIvisualizarTablas.addActionListener(this);
+        JMopciones.add(JMIvisualizarTablas);
+        //Agregar opciones al menui principal
+        JMopciones.addSeparator();
+        JMBmenuBar.add(JMopciones);
+
+        //Agregando acerca
+        JMIacerdaDe = new JMenuItem("Acerca De");
+        JMIacerdaDe.addActionListener(this);
+        JMopciones.addSeparator();
+        JMBmenuBar.add(JMIacerdaDe);
+
+        //Agregando salir
+        JMIsalir = new JMenuItem("Salir");
+        JMIsalir.addActionListener(this);
+        JMBmenuBar.add(JMIsalir);
+
+        setJMenuBar(JMBmenuBar);
+
+        
+        
+        
+    }
 
     //Hacer visibles las pantallas de las opciones
     @Override
@@ -166,6 +252,33 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         }
         if (e.getSource() == visualizarTablas){
             pvt.setVisible(true);
-        } 
+        }
+        
+        //MenuBar
+        if(e.getSource() == JMIacerdaDe){
+            JOptionPane.showMessageDialog(this, "Proyecto Principal de Topicos Avanzados de Programacion\nacerca de un Sistema Bibliotecario\nMaestro: Edmundo");
+        }
+        if(e.getSource() == JMIsalir){
+            int respuesta = JOptionPane.showConfirmDialog(this, "Deseas salir de la aplicacion?", "MODIFICAR", JOptionPane.YES_NO_OPTION);
+            if(respuesta == JOptionPane.YES_OPTION){
+                System.exit(0);
+            }
+            if(respuesta == JOptionPane.NO_OPTION){
+                return;
+            }
+        }
+
+        if (e.getSource() == JMIprestamoDevolucion){
+            ppdl.setVisible(true);
+        }
+        if (e.getSource() == JMIregistroLibros){
+            prl.setVisible(true);
+        }
+        if (e.getSource() == JMIregistroUsuarios){
+            pru.setVisible(true);
+        }
+        if (e.getSource() == JMIvisualizarTablas){
+            pvt.setVisible(true);
+        }
     }
 }
