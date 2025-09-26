@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 
 import objetos.Libro;
 
+//Creando la Pantalla de Registro de Libros
 public class PantallaRegistroLibros extends JFrame implements ActionListener{
 
     private JButton registrar, limpiar, limpiarBuscarTabla, buscarTablaB;
@@ -56,31 +57,39 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         contenedorCentro();
     }
 
+
+
+    //Creando los contenedores (BorderLayout)
     private void contenedorEste(){
         contenedorOpcionesEste = new JPanel();
         contenedorOpcionesEste.setLayout(new GridBagLayout());
+        //Se agregan los componentes del metodo tabla en el contenedor
         componentesTabla();
         add(contenedorOpcionesEste, BorderLayout.EAST);
     }
     private void contenedorOeste(){
         contenedorOpcionesOeste = new JPanel();
         contenedorOpcionesOeste.setLayout(new GridBagLayout());
+        //Se agregan los componentes para el metodo de registrar en el contenedor
         componentesAlta();
         add(contenedorOpcionesOeste, BorderLayout.WEST);
     }
     private void contenedorCentro(){
         contenedorOpcionesCentro = new JPanel();
         contenedorOpcionesCentro.setLayout(new GridBagLayout());
+        //Se agregan los componentes para el metodo de eliminar y modificar en el contenedor
         componentesBajaModificar();
         add(contenedorOpcionesCentro, BorderLayout.CENTER);
     }
     private void contenedorNorte(){
         contenedorOpcionesNorte = new JPanel();
         contenedorOpcionesNorte.setLayout(new GridBagLayout());
+        //Se agregan el titulo en el contenedor
         componentesContenedorNorte();
         add(contenedorOpcionesNorte, BorderLayout.NORTH);
     }
     
+    //Componentes de los contenedores (GridBagLayout)
     private void componentesAlta(){
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -369,6 +378,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Logica para registrar
         if(e.getSource() == registrar){
             List<Libro> librosExistentes = leerLibrosArchivo();
 
@@ -387,12 +397,16 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(this,"Se ha registrado correctamente!");
             actualizarTablaDesdeArchivo();
         }
+        
+        //Limpiando los campos de texto de registrar
         if(e.getSource() == limpiar){
             nombreTxt.setText("");
             categoriaTxt.setText("");
             autorTxt.setText("");
             edicionTxt.setText("");
         }
+        
+        //Logica para eliminar
         if(e.getSource() == eliminar){
             int respuesta = JOptionPane.showConfirmDialog(this, "Estas seguro de eliminar?", "ELIMINAR", JOptionPane.YES_NO_OPTION);
 
@@ -405,6 +419,8 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
                 actualizarTablaDesdeArchivo();
             }
         }
+        
+        //Logica para modificar
         if(e.getSource() == modificar){
             int respuesta = JOptionPane.showConfirmDialog(this, "Estas seguro de modificar?", "MODIFICAR", JOptionPane.YES_NO_OPTION);
 
@@ -417,9 +433,13 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
                 actualizarTablaDesdeArchivo();
             }
         }
+        
+        //Llamando al metodo buscar
         if(e.getSource() == buscarTablaB){
             buscarLibroPorNombreEnTabla(buscarTxt.getText());
         }
+        
+        //Limpiando el campo de texto buscar
         if(e.getSource() == limpiarBuscarTabla){
             buscarTxt.setText("");
         }
