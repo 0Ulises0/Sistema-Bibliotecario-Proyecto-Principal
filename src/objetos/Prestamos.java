@@ -33,7 +33,7 @@ public class Prestamos {
     }
 
     
-    public String toString(){
-        return fechaPrestamo+";"+fechaDevolucion+";"+estado;
+    public String[] toArray(){
+        return new String[] {fechaPrestamo,fechaDevolucion,estado};
     }
 }
