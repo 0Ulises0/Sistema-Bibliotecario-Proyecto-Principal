@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import componentes.JTextEntero;
 import objetos.Libro;
 
 //Creando la Pantalla de Registro de Libros
@@ -33,10 +34,13 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
 
     private JButton registrar, limpiar, limpiarBuscarTabla, buscarTablaB;
     private JLabel nombreLibro, categoriaLibro, autorLibro, edicionLibro,buscarTabla;
-    private JTextField nombreTxt, categoriaTxt, autorTxt, edicionTxt, buscarTxt;
+    private JTextField nombreTxt, categoriaTxt, autorTxt, buscarTxt;
 
     private JLabel idLibroBM, nombreLibroBM, categoriaLibroBM, autorLibroBM, edicionLibroBM;
-    private JTextField idTxtBM, nombreTxtBM, categoriaTxtBM, autorTxtBM, edicionTxtBM;
+    private JTextField nombreTxtBM, categoriaTxtBM, autorTxtBM;
+
+    private JTextEntero edicionTxtBM, edicionTxt, idTxtBM;
+
     private JButton eliminar, modificar;
 
     private JTable tablaLibros;
@@ -124,7 +128,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         contenedorOpcionesOeste.add(autorTxt,gbc);
 
         edicionLibro = new JLabel("Edicion:");
-        edicionTxt = new JTextField(15);
+        edicionTxt = new JTextEntero(15);
         gbc.gridx = 0;
         gbc.gridy = 3;
         contenedorOpcionesOeste.add(edicionLibro,gbc);
@@ -151,7 +155,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         gbc.insets = new Insets(10,10,10,10);
 
         idLibroBM = new JLabel("ID:");
-        idTxtBM = new JTextField(15);
+        idTxtBM = new JTextEntero(15);
         gbc.gridx = 0;
         gbc.gridy = 0;
         contenedorOpcionesCentro.add(idLibroBM);
@@ -187,7 +191,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         contenedorOpcionesCentro.add(autorTxtBM,gbc);
 
         edicionLibroBM = new JLabel("Edicion:");
-        edicionTxtBM = new JTextField(15);
+        edicionTxtBM = new JTextEntero(15);
         gbc.gridx = 0;
         gbc.gridy = 4;
         contenedorOpcionesCentro.add(edicionLibroBM,gbc);
