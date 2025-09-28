@@ -327,7 +327,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
                 String[] partes = linea.split(";");
                 if (partes.length == 6 && partes[0].equals(id)) {
                     // Reemplazar la línea con los nuevos datos
-                    linea = id + ";" + nombre + ";" + categoria + ";" + autor + ";" + edicion + ";" + "10";
+                    linea = id + ";" + nombre + ";" + categoria + ";" + autor + ";" + edicion + ";" + String.valueOf((int)((Math.random()*9)+1));
                 }
                 lineas.add(linea);
             }
@@ -374,8 +374,31 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
         tablaLibros.setModel(modelo);
     }
-    
-    
+    //Metodo para ver si un libro existe
+    public boolean libroEncontrado(Libro libro){
+        List<Libro> libros = leerLibrosArchivo();
+        for (Libro libroExistente : libros) {
+            if (libroExistente.getTitulo().equals(libro.getTitulo()) 
+                && libroExistente.getCategoria().equals(libro.getCategoria()) 
+                && libroExistente.getAutor().equals(libro.getAutor()) 
+                && libroExistente.getEdicion().equals(libro.getEdicion())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //Metodo para ver si un ID ya se encuentra registrado
+    public boolean libroEncontradoID(String id){
+        List<Libro> libros = leerLibrosArchivo();
+        for (Libro libroExistente : libros) {
+            if (libroExistente.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         //Logica para registrar
@@ -387,13 +410,36 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
             String categoria = categoriaTxt.getText();
             String autor = autorTxt.getText();
             String edicion = edicionTxt.getText();
-            String stock = "10";
+            String stock = String.valueOf((int)((Math.random()*9)+1));
 
             //Creando el libro
             Libro libro = new Libro(id, titulo, categoria, autor, edicion, stock);
-            //Guardando libro
-            guardarLibroEnArchivo(libro);
 
+            //Verificar si los campos estan vacios
+            if (libro.getTitulo().equals("") 
+                && libro.getCategoria().equals("") 
+                && libro.getAutor().equals("") 
+                && libro.getEdicion().equals("")) {
+                JOptionPane.showMessageDialog(this,"Sin datos que guardar");
+                return;
+            }
+            //Comprobar si ya existe
+            if(libroEncontrado(libro)){
+                JOptionPane.showMessageDialog(this,"Este libro ya esta registrado");
+                return;
+            }
+            //Guardando libro
+            //Comprobar que tenga todos los datos
+            if(!(libro.getTitulo().isEmpty() 
+            || libro.getCategoria().isEmpty() 
+            || libro.getAutor().isEmpty() 
+            || libro.getEdicion().isEmpty())){
+                guardarLibroEnArchivo(libro);
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"Datos faltantes!");
+                return;
+            }
             JOptionPane.showMessageDialog(this,"Se ha registrado correctamente!");
             actualizarTablaDesdeArchivo();
         }
@@ -414,6 +460,10 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
                 return;
             }
             if(respuesta == JOptionPane.YES_OPTION){
+                if(!libroEncontradoID(idTxtBM.getText())){
+                    JOptionPane.showMessageDialog(this,"Este id no esta registrado!");
+                    return;
+                }
                 eliminarLibroPorID(idTxtBM.getText());
                 JOptionPane.showMessageDialog(this,"Se ha eliminado correctamente!");
                 actualizarTablaDesdeArchivo();
@@ -428,6 +478,18 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
                 return;
             }
             if(respuesta == JOptionPane.YES_OPTION){
+                if(!libroEncontradoID(idTxtBM.getText())){
+                    JOptionPane.showMessageDialog(this,"Este id no esta registrado!");
+                    return;
+                }
+                else if((nombreTxtBM.getText().isEmpty() 
+                || categoriaTxtBM.getText().isEmpty() 
+                || autorTxtBM.getText().isEmpty() 
+                || edicionTxtBM.getText().isEmpty())){
+                    JOptionPane.showMessageDialog(this,"Datos faltantes para su modificacion!");
+                    return;
+                }
+                
                 modificarLibro(idTxtBM.getText(), nombreTxtBM.getText(), categoriaTxtBM.getText(), autorTxtBM.getText(), edicionTxtBM.getText());
                 JOptionPane.showMessageDialog(this,"Se ha modificado correctamente!");
                 actualizarTablaDesdeArchivo();

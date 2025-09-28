@@ -19,7 +19,6 @@ public class PantallaRegistroUsuarios extends JFrame implements ActionListener {
         setTitle(tituloVentana);
         setSize(500, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
         Font consola = new Font("Consolas", Font.PLAIN, 12);
 
@@ -285,8 +284,6 @@ public class PantallaRegistroUsuarios extends JFrame implements ActionListener {
         btRegistrar.addActionListener(this);
         btLimpiar.addActionListener(this);
         btCancelar.addActionListener(this);
-
-        setVisible(true);
     }
 
     @Override
@@ -326,8 +323,5 @@ public class PantallaRegistroUsuarios extends JFrame implements ActionListener {
         } else if (e.getSource() == btCancelar) {
             dispose();
         }
-    }
-    public static void main(String[] args) {
-        new PantallaRegistroUsuarios("Pantalla de Registro");
     }
 }
