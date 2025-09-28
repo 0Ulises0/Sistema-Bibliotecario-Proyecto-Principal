@@ -288,12 +288,12 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
     }
     //Metodo para guardar un libro
     public void guardarLibroEnArchivo(Libro libro) {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/datos/libros.txt", true))) {
-        bw.write(String.join(";", libro.toArray()));
-        bw.newLine();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/datos/libros.txt", true))) {
+            bw.write(String.join(";", libro.toArray()));
+            bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 }
     //Metodo para actualizar la tabla de libros
     public void actualizarTablaDesdeArchivo() {
