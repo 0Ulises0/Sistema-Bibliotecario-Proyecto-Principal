@@ -26,7 +26,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
     private JLabel ulises,ilse,darlin,integrantes;
     private JLabel titulo;
-    private JButton prestamoDevolucion, registroLibros, registroUsuarios, visualizarTablas;
+    private JButton prestamoDevolucion, registroLibros, registroUsuarios; //visualizarTablas;
     private JPanel contenedorOpcionesOeste, contenedorOpcionesNorte, contenedorOpcionesEste, contenedorOpcionesSur, contenedorOpcionesCentro;
 
 
@@ -147,11 +147,11 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         registroUsuarios.addActionListener(this);
         contenedorOpcionesOeste.add(registroUsuarios, gbc);
 
-        gbc.gridx = 0;
-		gbc.gridy = 3;
-        visualizarTablas = new JButton("Visualizar Tablas");
-        visualizarTablas.addActionListener(this);
-        contenedorOpcionesOeste.add(visualizarTablas, gbc);
+        //gbc.gridx = 0;
+		//gbc.gridy = 3;
+        //visualizarTablas = new JButton("Visualizar Tablas");
+        //visualizarTablas.addActionListener(this);
+        //contenedorOpcionesOeste.add(visualizarTablas, gbc);
     }
     //-Componentes del contenedor este se rige con GridBagLayout
     private void componentesContenedorEste(){
@@ -208,9 +208,9 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         JMIregistroUsuarios = new JMenuItem("Registro Usuarios");
         JMIregistroUsuarios.addActionListener(this);
         JMopciones.add(JMIregistroUsuarios);
-        JMIvisualizarTablas = new JMenuItem("Visualizar Tablas");
-        JMIvisualizarTablas.addActionListener(this);
-        JMopciones.add(JMIvisualizarTablas);
+        //JMIvisualizarTablas = new JMenuItem("Visualizar Tablas");
+        //JMIvisualizarTablas.addActionListener(this);
+        //JMopciones.add(JMIvisualizarTablas);
         //Agregar opciones al menui principal
         JMopciones.addSeparator();
         JMopciones.setBackground(Color.decode("#FAFAF9"));
@@ -242,9 +242,9 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         if (e.getSource() == registroUsuarios){
             pru.setVisible(true);
         }
-        if (e.getSource() == visualizarTablas){
-            pvt.setVisible(true);
-        }
+        //if (e.getSource() == visualizarTablas){
+        //    pvt.setVisible(true);
+        //}
         
         //MenuBar
         if(e.getSource() == JMIacerdaDe){
@@ -269,8 +269,8 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         if (e.getSource() == JMIregistroUsuarios){
             pru.setVisible(true);
         }
-        if (e.getSource() == JMIvisualizarTablas){
-            pvt.setVisible(true);
-        }
+        //if (e.getSource() == JMIvisualizarTablas){
+        //    pvt.setVisible(true);
+        //}
     }
 }
