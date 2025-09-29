@@ -7,11 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-
-import objetos.Prestamos;
 import objetos.Usuario; 
-import java.util.List;
+
 
 public class PantallaRegistroUsuarios extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
