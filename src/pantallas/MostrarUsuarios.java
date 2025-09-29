@@ -15,7 +15,7 @@ public class MostrarUsuarios extends JFrame implements ActionListener {
 
     public MostrarUsuarios() {
         setTitle("Usuarios Registrados");
-        setSize(900, 500);
+        setSize(1366, 768);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -24,7 +24,7 @@ public class MostrarUsuarios extends JFrame implements ActionListener {
         String[] columnNames = {"ID", "Nombres", "Apellidos", "Edad", "Género", "Teléfono", "Email",  "Fecha Nacimiento"};
         modeloTabla = new DefaultTableModel(columnNames, 0);
         tabla = new JTable(modeloTabla);
-        tabla.setFont(new Font("Consolas", Font.PLAIN, 12));
+        tabla.setFont(new Font("Arial", Font.PLAIN, 12));
         tabla.setRowHeight(25);
 
         JScrollPane scrollPane = new JScrollPane(tabla);
@@ -32,8 +32,8 @@ public class MostrarUsuarios extends JFrame implements ActionListener {
         JPanel panelBotones = new JPanel();
         btEliminar = new JButton("Eliminar Usuario Seleccionado");
         btCerrar = new JButton("Cerrar");
-        btEliminar.setFont(new Font("Consolas", Font.PLAIN, 12));
-        btCerrar.setFont(new Font("Consolas", Font.PLAIN, 12));
+        btEliminar.setFont(new Font("Arial", Font.PLAIN, 12));
+        btCerrar.setFont(new Font("Arial", Font.PLAIN, 12));
 
         panelBotones.add(btEliminar);
         panelBotones.add(btCerrar);

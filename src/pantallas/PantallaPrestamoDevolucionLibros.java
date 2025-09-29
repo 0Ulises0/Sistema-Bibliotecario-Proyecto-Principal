@@ -62,7 +62,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     //Creando la Pantalla para el Préstamo y Devolución de Libros
     public PantallaPrestamoDevolucionLibros(String titulo){
         setTitle(titulo);
-        setSize(1024,768);
+        setSize(1366,768);
         setLocationRelativeTo(null);
 
         contenedorNorte();
@@ -138,7 +138,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         contenedorOpcionesOeste.add(registrarP,gbc);
         registrarP.addActionListener(this);
     }
-
     private void componentesDevoluciones()
     {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -185,7 +184,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         contenedorOpcionesCentro.add(devolverP, gbc);
         devolverP.addActionListener(this);
     }
-
     private void componentesTabla()
     {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -242,7 +240,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
         contenedorOpcionesEste.add(scrollPrestamos, gbc);
     }
-
     private void componentesContenedorNorte(){
     titulo = new JLabel("Registro de Prestamos y Devoluciones");
     titulo.setFont(new Font("Arial", Font.PLAIN, 36));
@@ -314,8 +311,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     public void devolverPrestamo(String idP, String idU, String idL, String estado) {
         File archivo = new File("src/datos/prestamos.txt");
         List<String> lineas = new ArrayList<>();
-        boolean encontrado = false;
-
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -324,7 +319,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
                 if (partes.length == 5 && partes[0].equals(idP)) {
                     if (partes[4].equals("Prestado")) {
                         linea = idP + ";" + idU + ";" + idL + ";" + partes[3] + ";" + estado;
-                        encontrado = true;
                     } else {
                         JOptionPane.showMessageDialog(this,"Datos incorrectos o \neste préstamo ya fue devuelto");
                     }
