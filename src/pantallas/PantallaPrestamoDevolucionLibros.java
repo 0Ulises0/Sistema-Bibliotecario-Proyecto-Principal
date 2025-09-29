@@ -1,7 +1,6 @@
 package pantallas;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,20 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import componentes.JTextEntero;
 import objetos.Libro;
 import objetos.Prestamos;
-import objetos.Usuario;
 
 public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionListener {
     //Creando las partes de la interfaz
@@ -46,7 +42,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     private JLabel tituloD, lblIDPrestamo, lblidLibro, lblidUsuario;
     private JButton devolverP;
 
-    private JLabel idLibro, idUsuario, fecha;
+    private JLabel idLibro, idUsuario;
 
     //Tabla
     private JLabel buscarUsuario, buscarLibro;
@@ -239,7 +235,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        String[] columnas = {"ID Préstamo", "ID Libro", "ID Usuario", "Fecha", "Estado"};
+        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
 
         tablaPrestamos = new JTable(cargarTabla(),columnas);
         scrollPrestamos = new JScrollPane(tablaPrestamos);
@@ -298,7 +294,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
     //Metodo para actualizar la tabla de prestamos
     public void actualizarTablaDesdeArchivo() {
-        String[] columnas = {"ID Préstamo", "ID Libro", "ID Usuario", "Fecha", "Estado"};
+        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
         tablaPrestamos.setModel(new DefaultTableModel(cargarTabla(), columnas));
     }
 
@@ -308,7 +304,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
         String [][] informacion = new String[prestamo.size()][4];
 
-          for(int i = 0 ; i < prestamo.size() ; i ++){
+        for(int i = 0 ; i < prestamo.size() ; i ++){
             informacion[i] = prestamo.get(i).toArray();
         }
         return informacion;
@@ -318,14 +314,20 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     public void devolverPrestamo(String idP, String idU, String idL, String estado) {
         File archivo = new File("src/datos/prestamos.txt");
         List<String> lineas = new ArrayList<>();
+        boolean encontrado = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(";");
-                if (partes.length == 4 && partes[0].equals(idP)) {
-                    // Reemplazar la línea con los nuevos datos
-                    linea = idP + ";" + idU + ";" + idL + ";" + obtenerFecha() + ";" + estado;
+                
+                if (partes.length == 5 && partes[0].equals(idP)) {
+                    if (partes[4].equals("Prestado")) {
+                        linea = idP + ";" + idU + ";" + idL + ";" + partes[3] + ";" + estado;
+                        encontrado = true;
+                    } else {
+                        JOptionPane.showMessageDialog(this,"Datos incorrectos o \neste préstamo ya fue devuelto");
+                    }
                 }
                 lineas.add(linea);
             }
@@ -344,6 +346,57 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     }
 
 
+    public void buscarLibroPorIdLibroPrestamoEnTabla(String idLibro) {
+        List<Prestamos> prestamos = leerPrestamosArchivo();
+        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
+        List<Prestamos> resultado = new ArrayList<>();
+
+        for (Prestamos prestamo : prestamos) {
+            if (prestamo.getIdL().toLowerCase().contains(idLibro)) {
+                resultado.add(prestamo);
+            }
+        }
+        // Convertir a array para tabla
+        String[][] datos; 
+        if (!resultado.isEmpty()) {
+            datos = new String[resultado.size()][5];
+            for (int i = 0; i < resultado.size(); i++) {
+                datos[i] = resultado.get(i).toArray();
+            }
+        } else {
+            datos = new String[0][5];  // Sin resultados
+        }
+
+        // Actualizar modelo de la tabla
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        tablaPrestamos.setModel(modelo);
+    }
+    public void buscarLibroPorIdUsuarioPrestamoEnTabla(String idUsuario) {
+        List<Prestamos> prestamos = leerPrestamosArchivo();
+        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
+        List<Prestamos> resultado = new ArrayList<>();
+
+        for (Prestamos prestamo : prestamos) {
+            if (prestamo.getIdU().toLowerCase().contains(idUsuario)) {
+                resultado.add(prestamo);
+            }
+        }
+        // Convertir a array para tabla
+        String[][] datos; 
+        if (!resultado.isEmpty()) {
+            datos = new String[resultado.size()][5];
+            for (int i = 0; i < resultado.size(); i++) {
+                datos[i] = resultado.get(i).toArray();
+            }
+        } else {
+            datos = new String[0][5];  // Sin resultados
+        }
+
+        // Actualizar modelo de la tabla
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        tablaPrestamos.setModel(modelo);
+    }
+
     public String obtenerFecha()
     {
         LocalDate fecha = LocalDate.now();
@@ -353,8 +406,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == registrarP)
-        {
+        if(e.getSource() == registrarP){
             List<Prestamos> prestamosExistentes = leerPrestamosArchivo();
 
             String id = String.valueOf(prestamosExistentes.size() + 1);
@@ -365,10 +417,21 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
             Prestamos prestamo = new Prestamos(id, idUsuario, idLibro, fechaPrestamo, estado);
 
-            guardarPrestamoEnArchivo(prestamo);
+            if(prestamo.getIdL().equals("") && prestamo.getIdU().equals("")){
+                JOptionPane.showMessageDialog(this,"Sin datos que guardar");
+                return;
+            }
+            else if(!(prestamo.getIdL().isEmpty() || prestamo.getIdU().isEmpty())){
+                guardarPrestamoEnArchivo(prestamo);
+                JOptionPane.showMessageDialog(this,"Proceso exitoso!");
+                actualizarTablaDesdeArchivo();
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"Faltan datos por ingresar!");
+                return;
+            }
 
-            JOptionPane.showMessageDialog(this,"Proceso exitoso!");
-            actualizarTablaDesdeArchivo();
+            
         }
 
         //Limpiando los campos de busqueda
@@ -377,22 +440,29 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
             txtUsuarioB.setText("");
         }
 
-        if(e.getSource() == devolverP)
-        {
-            List<Prestamos> prestamosExistentes = leerPrestamosArchivo();
+        if(e.getSource() == devolverP){
 
             String idP = idTxtPrestamo.getText();
             String idL = idTxtLibroD.getText();
             String idU = idTxtUsuarioD.getText();
-            //String fechaD = obtenerFecha();
             String estado = "Devuelto";
 
-            //Prestamos prestamo = new Prestamos(idP, idU, idL, fechaD, estado);
-
+            if(idP.isEmpty() && idL.isEmpty() && idU.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Ingresa datos");
+                return;
+            }
+            else if(idP.isEmpty() || idL.isEmpty() || idU.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Datos faltantes!");
+                return;
+            }
             devolverPrestamo(idP, idU, idL, estado);
-
-            JOptionPane.showMessageDialog(this,"Proceso exitoso!");
             actualizarTablaDesdeArchivo();
+        }
+        if(e.getSource() == buscarLibroB){
+            buscarLibroPorIdLibroPrestamoEnTabla(txtLibroB.getText());
+        }
+        if(e.getSource() == buscarUsuarioB){
+            buscarLibroPorIdUsuarioPrestamoEnTabla(txtUsuarioB.getText());
         }
     }
 }
