@@ -50,7 +50,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         super(title);
 
         //Parametros de la ventana
-        setSize(1024,768);
+        setSize(1366,768);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

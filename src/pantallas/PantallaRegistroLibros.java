@@ -43,6 +43,8 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
 
     private JButton eliminar, modificar;
 
+    private JLabel tituloAlta, tituloBajaModificar;
+
     private JTable tablaLibros;
     private JScrollPane scrollLibros;
 
@@ -100,51 +102,57 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
 
         gbc.insets = new Insets(10,10,10,10);
 
-        nombreLibro = new JLabel("Nombre:");
-        nombreTxt = new JTextField(15);
+        tituloAlta = new JLabel("REGISTRAR LIBRO");
+        tituloAlta.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 0;
+        contenedorOpcionesOeste.add(tituloAlta, gbc);
+
+        nombreLibro = new JLabel("Nombre:");
+        nombreTxt = new JTextField(20);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         contenedorOpcionesOeste.add(nombreLibro,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         contenedorOpcionesOeste.add(nombreTxt,gbc);
 
         categoriaLibro = new JLabel("Categoria:");
-        categoriaTxt = new JTextField(15);
+        categoriaTxt = new JTextField(20);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         contenedorOpcionesOeste.add(categoriaLibro,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         contenedorOpcionesOeste.add(categoriaTxt,gbc);
 
         autorLibro = new JLabel("Autor:");
-        autorTxt = new JTextField(15);
+        autorTxt = new JTextField(20);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         contenedorOpcionesOeste.add(autorLibro,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         contenedorOpcionesOeste.add(autorTxt,gbc);
 
         edicionLibro = new JLabel("Edicion:");
-        edicionTxt = new JTextEntero(15);
+        edicionTxt = new JTextEntero(20);
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contenedorOpcionesOeste.add(edicionLibro,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contenedorOpcionesOeste.add(edicionTxt,gbc);
 
         registrar = new JButton("REGISTRAR");
         limpiar = new JButton("LIMPIAR");
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         contenedorOpcionesOeste.add(registrar,gbc);
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         contenedorOpcionesOeste.add(limpiar,gbc);
         registrar.addActionListener(this);
         limpiar.addActionListener(this);
@@ -154,60 +162,66 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
 
         gbc.insets = new Insets(10,10,10,10);
 
-        idLibroBM = new JLabel("ID:");
-        idTxtBM = new JTextEntero(15);
+        tituloBajaModificar = new JLabel("BAJA Y MODIFICAR");
+        tituloBajaModificar.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 0;
-        contenedorOpcionesCentro.add(idLibroBM);
+        contenedorOpcionesCentro.add(tituloBajaModificar, gbc);
+
+        idLibroBM = new JLabel("ID:");
+        idTxtBM = new JTextEntero(20);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        contenedorOpcionesCentro.add(idLibroBM, gbc);
         gbc.gridx = 1;
-        gbc.gridy = 0;
-        contenedorOpcionesCentro.add(idTxtBM);
+        gbc.gridy = 1;
+        contenedorOpcionesCentro.add(idTxtBM, gbc);
 
         nombreLibroBM = new JLabel("Nombre:");
-        nombreTxtBM = new JTextField(15);
+        nombreTxtBM = new JTextField(20);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         contenedorOpcionesCentro.add(nombreLibroBM,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         contenedorOpcionesCentro.add(nombreTxtBM,gbc);
 
         categoriaLibroBM = new JLabel("Categoria:");
-        categoriaTxtBM = new JTextField(15);
+        categoriaTxtBM = new JTextField(20);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         contenedorOpcionesCentro.add(categoriaLibroBM,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         contenedorOpcionesCentro.add(categoriaTxtBM,gbc);
 
         autorLibroBM = new JLabel("Autor:");
-        autorTxtBM = new JTextField(15);
+        autorTxtBM = new JTextField(20);
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contenedorOpcionesCentro.add(autorLibroBM,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         contenedorOpcionesCentro.add(autorTxtBM,gbc);
 
         edicionLibroBM = new JLabel("Edicion:");
-        edicionTxtBM = new JTextEntero(15);
+        edicionTxtBM = new JTextEntero(20);
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contenedorOpcionesCentro.add(edicionLibroBM,gbc);
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         contenedorOpcionesCentro.add(edicionTxtBM,gbc);
 
         eliminar = new JButton("ELIMINAR");
         modificar = new JButton("MODIFICAR");
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         contenedorOpcionesCentro.add(eliminar,gbc);
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         contenedorOpcionesCentro.add(modificar,gbc);
         eliminar.addActionListener(this);
         modificar.addActionListener(this);
