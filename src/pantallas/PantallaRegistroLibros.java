@@ -99,7 +99,6 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
     private void componentesAlta(){
 
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.insets = new Insets(10,10,10,10);
 
         tituloAlta = new JLabel("REGISTRAR LIBRO");

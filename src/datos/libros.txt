@@ -26,9 +26,3 @@
 26;It;Terror;Stephen King;1;7
 27;El psicoanalista;Thriller;John Katzenbach;1;9
 28;El juego de Ender;Ciencia Ficción;Orson Scott Card;1;10
-29;Ilse Bonita;fantasi;Ulises;9;6
-30;Ilse hermosa;hermosa;ulises;1;1
-31;Ilse hermosa;hermosa;ulises;12;5
-32;Ilse hermosa;hermosa;ulisess;1;1
-33;Ilse hermosa;hermosas;ulises;1;2
-34;Ilse Hermosisima;Fantasia;Ulises;2;8

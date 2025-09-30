@@ -26,7 +26,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
 
     private JLabel ulises,ilse,darlin,integrantes;
     private JLabel titulo;
-    private JButton prestamoDevolucion, registroLibros, registroUsuarios; //visualizarTablas;
+    private JButton prestamoDevolucion, registroLibros, registroUsuarios;
     private JPanel contenedorOpcionesOeste, contenedorOpcionesNorte, contenedorOpcionesEste, contenedorOpcionesSur, contenedorOpcionesCentro;
 
 
@@ -43,7 +43,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     PantallaPrestamoDevolucionLibros ppdl = new PantallaPrestamoDevolucionLibros("Prestamos Y Devoluciones");
     PantallaRegistroLibros prl = new PantallaRegistroLibros("Resgitro de Libros");
     PantallaRegistroUsuarios pru = new PantallaRegistroUsuarios("Registro de Usuarios");
-    PantallVisualizarTablas pvt = new PantallVisualizarTablas("Visualisar Tablas");
 
     public PantallaPrincipal (String title){
         //Poner el titulo
@@ -106,20 +105,16 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         add(contenedorOpcionesCentro, BorderLayout.CENTER);
     }
     
-    
-    
     //Metodos para agregar componentes a los contenedores
     //-Componentes del contenedor norte se rige con GridBagLayout
     private void componentesContenedorNorte(){
         GridBagConstraints gbc = new GridBagConstraints();
-        
         // Configurar el JLabel del titulo
         gbc.gridx = 0;
         gbc.gridy = 0;
         titulo = new JLabel("Sistema Bibliotecario");
         titulo.setFont(new Font("Arial", Font.PLAIN, 36)); //Establecer tamano y fuente al JLabel
         contenedorOpcionesNorte.add(titulo, gbc);
-
     }
     //-Componentes del contenedor oeste se rige con GridBagLayout
     private void componentesContenedorOeste(){
@@ -146,12 +141,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         registroUsuarios = new JButton("Registro Usuarios");
         registroUsuarios.addActionListener(this);
         contenedorOpcionesOeste.add(registroUsuarios, gbc);
-
-        //gbc.gridx = 0;
-		//gbc.gridy = 3;
-        //visualizarTablas = new JButton("Visualizar Tablas");
-        //visualizarTablas.addActionListener(this);
-        //contenedorOpcionesOeste.add(visualizarTablas, gbc);
     }
     //-Componentes del contenedor este se rige con GridBagLayout
     private void componentesContenedorEste(){
@@ -208,19 +197,18 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         JMIregistroUsuarios = new JMenuItem("Registro Usuarios");
         JMIregistroUsuarios.addActionListener(this);
         JMopciones.add(JMIregistroUsuarios);
-        //JMIvisualizarTablas = new JMenuItem("Visualizar Tablas");
-        //JMIvisualizarTablas.addActionListener(this);
-        //JMopciones.add(JMIvisualizarTablas);
-        //Agregar opciones al menui principal
-        JMopciones.addSeparator();
         JMopciones.setBackground(Color.decode("#FAFAF9"));
         JMBmenuBar.add(JMopciones);
+
+        JMopciones.addSeparator();
 
         //Agregando acerca
         JMIacerdaDe = new JMenuItem("Acerca De");
         JMIacerdaDe.addActionListener(this);
         JMopciones.addSeparator();
         JMBmenuBar.add(JMIacerdaDe);
+
+        JMopciones.addSeparator();
 
         //Agregando salir
         JMIsalir = new JMenuItem("Salir");
@@ -242,9 +230,6 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         if (e.getSource() == registroUsuarios){
             pru.setVisible(true);
         }
-        //if (e.getSource() == visualizarTablas){
-        //    pvt.setVisible(true);
-        //}
         
         //MenuBar
         if(e.getSource() == JMIacerdaDe){
@@ -269,8 +254,5 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         if (e.getSource() == JMIregistroUsuarios){
             pru.setVisible(true);
         }
-        //if (e.getSource() == JMIvisualizarTablas){
-        //    pvt.setVisible(true);
-        //}
     }
 }
