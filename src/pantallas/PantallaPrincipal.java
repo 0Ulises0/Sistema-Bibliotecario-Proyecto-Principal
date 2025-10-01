@@ -23,6 +23,12 @@ import java.awt.event.ActionListener;
 public class PantallaPrincipal extends JFrame implements ActionListener{
 
     private static final long serialVersionUID = 1L;
+    private static final int ANCHO_VENTANA = 1366;
+    private static final int ALTO_VENTANA = 768;
+
+    private static final Color COLOR_PANELES = Color.decode("#F6CFFF");
+    private static final Color COLOR_TITULO = Color.decode("#DAB2FF");
+    private static final Color COLOR_MENU = Color.decode("#C4B4FF");
 
     private JLabel ulises,ilse,darlin,integrantes;
     private JLabel titulo;
@@ -35,21 +41,17 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     JMenuItem JMIacerdaDe,JMIsalir;
     JMenuItem JMIprestamoDevolucion, JMIregistroLibros, JMIregistroUsuarios, JMIvisualizarTablas;
 
-    String colorPaneles = "#F6CFFF";
-    String colorTitulo = "#DAB2FF";
-    String colorMenu = "#C4B4FF";
-
     //Creando las otras pantallas de las opciones disponibles
-    PantallaPrestamoDevolucionLibros ppdl = new PantallaPrestamoDevolucionLibros("Prestamos Y Devoluciones");
-    PantallaRegistroLibros prl = new PantallaRegistroLibros("Resgitro de Libros");
-    PantallaRegistroUsuarios pru = new PantallaRegistroUsuarios("Registro de Usuarios");
+    PantallaPrestamoDevolucionLibros ppdl;
+    PantallaRegistroLibros prl;
+    PantallaRegistroUsuarios pru ;
 
     public PantallaPrincipal (String title){
         //Poner el titulo
         super(title);
 
         //Parametros de la ventana
-        setSize(1366,768);
+        setSize(ANCHO_VENTANA, ALTO_VENTANA);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -67,7 +69,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor norte con BorderLayout.NORTH
     private void contenedorNorte(){
         contenedorOpcionesNorte = new JPanel();
-        contenedorOpcionesNorte.setBackground(Color.decode(colorTitulo));
+        contenedorOpcionesNorte.setBackground(COLOR_TITULO);
         contenedorOpcionesNorte.setLayout(new GridBagLayout());
         componentesContenedorNorte();
         add(contenedorOpcionesNorte,BorderLayout.NORTH);
@@ -75,7 +77,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor este con BorderLayout.EAST
     private void contenedorEste(){
         contenedorOpcionesEste = new JPanel();
-        contenedorOpcionesEste.setBackground(Color.decode(colorPaneles));
+        contenedorOpcionesEste.setBackground(COLOR_PANELES);
         contenedorOpcionesEste.setLayout(new GridBagLayout());
         componentesContenedorEste();
         add(contenedorOpcionesEste,BorderLayout.EAST);
@@ -83,7 +85,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor oeste con BorderLayout.WEST
     private void contenedorOeste (){
         contenedorOpcionesOeste = new JPanel();
-        contenedorOpcionesOeste.setBackground(Color.decode(colorPaneles));
+        contenedorOpcionesOeste.setBackground(COLOR_PANELES);
         contenedorOpcionesOeste.setLayout(new GridBagLayout());
         componentesContenedorOeste();
         add(contenedorOpcionesOeste, BorderLayout.WEST);
@@ -91,7 +93,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor sur con BorderLayout.SOUTH
     private void contenedorSur(){
         contenedorOpcionesSur = new JPanel();
-        contenedorOpcionesSur.setBackground(Color.decode(colorPaneles));
+        contenedorOpcionesSur.setBackground(COLOR_PANELES);
         contenedorOpcionesSur.setLayout(new GridBagLayout());
         componentesContenedorSur();
         add(contenedorOpcionesSur, BorderLayout.SOUTH);
@@ -99,7 +101,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
     //-Contenedor centro con BorderLayout.CENTER
     private void contenedorCentro(){
         contenedorOpcionesCentro = new JPanel();
-        contenedorOpcionesCentro.setBackground(Color.decode(colorPaneles));
+        contenedorOpcionesCentro.setBackground(COLOR_PANELES);
         contenedorOpcionesCentro.setLayout(new GridBagLayout());
         componentesContenedorCentro();
         add(contenedorOpcionesCentro, BorderLayout.CENTER);
@@ -182,7 +184,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         //Creando la barra de menu
         JMBmenuBar = new JMenuBar();
         JMBmenuBar.setLayout(new FlowLayout());
-        JMBmenuBar.setBackground(Color.decode(colorMenu));
+        JMBmenuBar.setBackground(COLOR_MENU);
 
         //Creando menu de opciones
         JMopciones = new JMenu("Opciones");
@@ -197,7 +199,7 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         JMIregistroUsuarios = new JMenuItem("Registro Usuarios");
         JMIregistroUsuarios.addActionListener(this);
         JMopciones.add(JMIregistroUsuarios);
-        JMopciones.setBackground(Color.decode("#FAFAF9"));
+        JMopciones.setBackground(COLOR_MENU);
         JMBmenuBar.add(JMopciones);
 
         JMopciones.addSeparator();
@@ -218,41 +220,62 @@ public class PantallaPrincipal extends JFrame implements ActionListener{
         setJMenuBar(JMBmenuBar); 
     }
 
+    //Metodos para la creacion y muestra de pantallas
+    public void mostrarPrestamosYDevoluciones(){
+        if(ppdl == null){
+            ppdl = new PantallaPrestamoDevolucionLibros("Prestamos Y Devoluciones");
+        }
+        ppdl.setVisible(true);
+    }
+    public void mostrarRegistroLibros(){
+        if(prl == null){
+            prl = new PantallaRegistroLibros("Registro De Libros");
+        }
+        prl.setVisible(true);
+    }
+    public void mostrarRegistroUsuarios(){
+        if(pru == null){
+            pru = new PantallaRegistroUsuarios("Registro De Usuarios");
+        }
+        pru.setVisible(true);
+    }
+
     //Hacer visibles las pantallas de las opciones
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == prestamoDevolucion){
-            ppdl.setVisible(true);
+            mostrarPrestamosYDevoluciones();
         }
-        if (e.getSource() == registroLibros){
-            prl.setVisible(true);
+        else if (e.getSource() == registroLibros){
+            mostrarRegistroLibros();
         }
-        if (e.getSource() == registroUsuarios){
-            pru.setVisible(true);
+        else if (e.getSource() == registroUsuarios){
+            mostrarRegistroUsuarios();
         }
         
         //MenuBar
-        if(e.getSource() == JMIacerdaDe){
+        else if (e.getSource() == JMIacerdaDe){
             JOptionPane.showMessageDialog(this, "Proyecto Principal de Topicos Avanzados de Programacion\nacerca de un Sistema Bibliotecario\nMaestro: Edmundo");
         }
-        if(e.getSource() == JMIsalir){
+        else if (e.getSource() == JMIsalir){
             int respuesta = JOptionPane.showConfirmDialog(this, "Deseas salir de la aplicacion?", "MODIFICAR", JOptionPane.YES_NO_OPTION);
-            if(respuesta == JOptionPane.YES_OPTION){
+            if (respuesta == JOptionPane.YES_OPTION){
                 System.exit(0);
             }
-            if(respuesta == JOptionPane.NO_OPTION){
+            else if (respuesta == JOptionPane.NO_OPTION){
                 return;
             }
         }
 
-        if (e.getSource() == JMIprestamoDevolucion){
-            ppdl.setVisible(true);
+        //Menu de opciones
+        else if (e.getSource() == JMIprestamoDevolucion){
+            mostrarPrestamosYDevoluciones();
         }
-        if (e.getSource() == JMIregistroLibros){
-            prl.setVisible(true);
+        else if (e.getSource() == JMIregistroLibros){
+            mostrarRegistroLibros();
         }
-        if (e.getSource() == JMIregistroUsuarios){
-            pru.setVisible(true);
+        else if (e.getSource() == JMIregistroUsuarios){
+            mostrarRegistroUsuarios();
         }
     }
 }
