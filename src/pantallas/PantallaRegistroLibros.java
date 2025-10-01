@@ -7,14 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,8 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import LogicasLibro.LibrosControlador;
 import componentes.JTextEntero;
-import objetos.Libro;
 
 //Creando la Pantalla de Registro de Libros
 public class PantallaRegistroLibros extends JFrame implements ActionListener{
@@ -51,10 +43,20 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
     private JLabel titulo;
 
     private JPanel contenedorOpcionesEste, contenedorOpcionesOeste, contenedorOpcionesCentro, contenedorOpcionesNorte;
+
+    private final LibrosControlador controlador;
+
+    private final String[] columnas = {"ID", "Nombre", "Categoria", "Autor", "Edicion", "Stock"};
+
+    private static final int ANCHO_VENTANA = 1366;
+    private static final int ALTO_VENTANA = 768;
     
     public PantallaRegistroLibros(String titulo){
+
+        this.controlador = new LibrosControlador();
+
         setTitle(titulo);
-        setSize(1366,768);
+        setSize(ANCHO_VENTANA, ALTO_VENTANA);
         setLocationRelativeTo(null);
 
         contenedorNorte();
@@ -258,9 +260,7 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         gbc.gridx = 0;
         gbc.gridy = 1;
 
-        String[] columnas = {"ID", "Nombre", "Categoria", "Autor", "Edicion", "Stock"};
-
-        tablaLibros = new JTable(cargarTabla(),columnas);
+        tablaLibros = new JTable(controlador.cargarLibrosTabla(),columnas);
         scrollLibros = new JScrollPane(tablaLibros);
 
         contenedorOpcionesEste.add(scrollLibros, gbc);
@@ -269,196 +269,21 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         titulo = new JLabel("Registro de Libros");
         titulo.setFont(new Font("Arial", Font.PLAIN, 36));
         contenedorOpcionesNorte.add(titulo);
-        
     }
     
 
-    //Metodo para leer los libros del archivo libros.txt
-    public List<Libro> leerLibrosArchivo(){
-        List<Libro> listaLibros = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader("src/datos/libros.txt"))){
-            String linea;
-            while((linea = br.readLine()) != null){
-                String[] partes = linea.split(";");
-                if(partes.length == 6){
-                    listaLibros.add(new Libro(partes[0],partes[1],partes[2],partes[3],partes[4],partes[5]));
-                }
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        return listaLibros;
+    public void actualizarTabla(String [][] informacion) {
+        tablaLibros.setModel(new DefaultTableModel(informacion, columnas));
     }
-    //Metodo para retornar array con los libros
-    public String[][] cargarTabla(){
-        List<Libro> libros =  leerLibrosArchivo();
-        String [][] informacion = new String[libros.size()][6];
-
-        for(int i = 0 ; i < libros.size() ; i ++){
-            informacion[i] = libros.get(i).toArray();
-        }
-        return informacion;
-    }
-    //Metodo para guardar un libro
-    public void guardarLibroEnArchivo(Libro libro) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/datos/libros.txt", true))) {
-            bw.write(String.join(";", libro.toArray()));
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-}
-    //Metodo para actualizar la tabla de libros
-    public void actualizarTablaDesdeArchivo() {
-        String[] columnas = {"ID", "Nombre", "Categoria", "Autor", "Edicion", "Stock"};
-        tablaLibros.setModel(new DefaultTableModel(cargarTabla(), columnas));
-    }
-    //Metodo para eliminar por ID de libro
-    public void eliminarLibroPorID(String idAEliminar) {
-        List<Libro> libros = leerLibrosArchivo();
-        List<Libro> librosActualizados = new ArrayList<>();
-
-        for (Libro libro : libros) {
-            if (!libro.getId().equals(idAEliminar)) {
-                librosActualizados.add(libro);
-            }
-        }
-        // Sobrescribir el archivo con los libros restantes
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/datos/libros.txt", false))) {
-            for (Libro libro : librosActualizados) {
-                bw.write(String.join(";", libro.toArray()));
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    //Modificar libro por ID de libro
-    public void modificarLibro(String id, String nombre, String categoria, String autor, String edicion) {
-        File archivo = new File("src/datos/libros.txt");
-        List<String> lineas = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split(";");
-                if (partes.length == 6 && partes[0].equals(id)) {
-                    // Reemplazar la línea con los nuevos datos
-                    linea = id + ";" + nombre + ";" + categoria + ";" + autor + ";" + edicion + ";" + String.valueOf((int)((Math.random()*9)+1));
-                }
-                lineas.add(linea);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, false))) {
-            for (String l : lineas) {
-                bw.write(l);
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    //Metodo para buscar a personas y actualizar la tabla
-    public void buscarLibroPorNombreEnTabla(String nombreBuscado) {
-        List<Libro> libros = leerLibrosArchivo();
-        String[] columnas = {"ID", "Nombre", "Categoria", "Autor", "Edicion", "Stock"};
-
-        // Filtrar libros cuyo nombre contiene el texto buscado (ignorar mayúsculas/minúsculas)
-        List<Libro> resultado = new ArrayList<>();
-        String nombreLower = nombreBuscado.toLowerCase();
-
-        for (Libro libro : libros) {
-            if (libro.getTitulo().toLowerCase().contains(nombreLower)) {
-                resultado.add(libro);
-            }
-        }
-
-        // Convertir a array para tabla
-        String[][] datos;
-        if (!resultado.isEmpty()) {
-            datos = new String[resultado.size()][6];
-            for (int i = 0; i < resultado.size(); i++) {
-                datos[i] = resultado.get(i).toArray();
-            }
-        } else {
-            datos = new String[0][6];  // Sin resultados
-        }
-
-        // Actualizar modelo de la tabla
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
-        tablaLibros.setModel(modelo);
-    }
-    //Metodo para ver si un libro existe
-    public boolean libroEncontrado(Libro libro){
-        List<Libro> libros = leerLibrosArchivo();
-        for (Libro libroExistente : libros) {
-            if (libroExistente.getTitulo().equals(libro.getTitulo()) 
-                && libroExistente.getCategoria().equals(libro.getCategoria()) 
-                && libroExistente.getAutor().equals(libro.getAutor()) 
-                && libroExistente.getEdicion().equals(libro.getEdicion())) {
-                return true;
-            }
-        }
-        return false;
-    }
-    //Metodo para ver si un ID ya se encuentra registrado
-    public boolean libroEncontradoID(String id){
-        List<Libro> libros = leerLibrosArchivo();
-        for (Libro libroExistente : libros) {
-            if (libroExistente.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         //Logica para registrar
         if(e.getSource() == registrar){
-            List<Libro> librosExistentes = leerLibrosArchivo();
+            String mensaje = controlador.registrarLibro(nombreTxt.getText(),categoriaTxt.getText(),autorTxt.getText(),edicionTxt.getText());
+            JOptionPane.showMessageDialog(this, mensaje);
 
-            String id = String.valueOf(librosExistentes.size()+1);
-            String titulo = nombreTxt.getText();
-            String categoria = categoriaTxt.getText();
-            String autor = autorTxt.getText();
-            String edicion = edicionTxt.getText();
-            String stock = String.valueOf((int)((Math.random()*9)+1));
-
-            //Creando el libro
-            Libro libro = new Libro(id, titulo, categoria, autor, edicion, stock);
-
-            //Verificar si los campos estan vacios
-            if (libro.getTitulo().equals("") 
-                && libro.getCategoria().equals("") 
-                && libro.getAutor().equals("") 
-                && libro.getEdicion().equals("")) {
-                JOptionPane.showMessageDialog(this,"Sin datos que guardar");
-                return;
-            }
-            //Comprobar si ya existe
-            if(libroEncontrado(libro)){
-                JOptionPane.showMessageDialog(this,"Este libro ya esta registrado");
-                return;
-            }
-            //Guardando libro
-            //Comprobar que tenga todos los datos
-            if(!(libro.getTitulo().isEmpty() 
-            || libro.getCategoria().isEmpty() 
-            || libro.getAutor().isEmpty() 
-            || libro.getEdicion().isEmpty())){
-                guardarLibroEnArchivo(libro);
-            }
-            else{
-                JOptionPane.showMessageDialog(this,"Datos faltantes!");
-                return;
-            }
-            JOptionPane.showMessageDialog(this,"Se ha registrado correctamente!");
-            actualizarTablaDesdeArchivo();
+            actualizarTabla(controlador.cargarLibrosTabla());
         }
         
         //Limpiando los campos de texto de registrar
@@ -473,17 +298,13 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         if(e.getSource() == eliminar){
             int respuesta = JOptionPane.showConfirmDialog(this, "Estas seguro de eliminar?", "ELIMINAR", JOptionPane.YES_NO_OPTION);
 
-            if(respuesta == JOptionPane.NO_OPTION){
-                return;
+            if (respuesta == JOptionPane.YES_OPTION){
+                String mensaje = controlador.eliminarLibro(idTxtBM.getText());
+                JOptionPane.showMessageDialog(this, mensaje);
+                actualizarTabla(controlador.cargarLibrosTabla());
             }
-            if(respuesta == JOptionPane.YES_OPTION){
-                if(!libroEncontradoID(idTxtBM.getText())){
-                    JOptionPane.showMessageDialog(this,"Este id no esta registrado!");
-                    return;
-                }
-                eliminarLibroPorID(idTxtBM.getText());
-                JOptionPane.showMessageDialog(this,"Se ha eliminado correctamente!");
-                actualizarTablaDesdeArchivo();
+            else if (respuesta == JOptionPane.NO_OPTION){
+                JOptionPane.showMessageDialog(this, "Operacion cancelada");
             }
         }
         
@@ -491,31 +312,19 @@ public class PantallaRegistroLibros extends JFrame implements ActionListener{
         if(e.getSource() == modificar){
             int respuesta = JOptionPane.showConfirmDialog(this, "Estas seguro de modificar?", "MODIFICAR", JOptionPane.YES_NO_OPTION);
 
-            if(respuesta == JOptionPane.NO_OPTION){
-                return;
+            if (respuesta == JOptionPane.YES_OPTION){
+                String mensaje = controlador.modificarLibro(idTxtBM.getText(),nombreTxtBM.getText(),categoriaTxtBM.getText(),autorTxtBM.getText(),edicionTxtBM.getText());
+                JOptionPane.showMessageDialog(this, mensaje);
+                actualizarTabla(controlador.cargarLibrosTabla());
             }
-            if(respuesta == JOptionPane.YES_OPTION){
-                if(!libroEncontradoID(idTxtBM.getText())){
-                    JOptionPane.showMessageDialog(this,"Este id no esta registrado!");
-                    return;
-                }
-                else if((nombreTxtBM.getText().isEmpty() 
-                || categoriaTxtBM.getText().isEmpty() 
-                || autorTxtBM.getText().isEmpty() 
-                || edicionTxtBM.getText().isEmpty())){
-                    JOptionPane.showMessageDialog(this,"Datos faltantes para su modificacion!");
-                    return;
-                }
-                
-                modificarLibro(idTxtBM.getText(), nombreTxtBM.getText(), categoriaTxtBM.getText(), autorTxtBM.getText(), edicionTxtBM.getText());
-                JOptionPane.showMessageDialog(this,"Se ha modificado correctamente!");
-                actualizarTablaDesdeArchivo();
+            else if (respuesta == JOptionPane.NO_OPTION){
+                JOptionPane.showMessageDialog(this, "Operacion cancelada");
             }
         }
         
         //Llamando al metodo buscar
         if(e.getSource() == buscarTablaB){
-            buscarLibroPorNombreEnTabla(buscarTxt.getText());
+            actualizarTabla(controlador.buscarLibros(buscarTxt.getText()));
         }
         
         //Limpiando el campo de texto buscar
