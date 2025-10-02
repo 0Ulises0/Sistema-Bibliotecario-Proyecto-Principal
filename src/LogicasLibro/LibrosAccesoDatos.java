@@ -30,7 +30,7 @@ public class LibrosAccesoDatos {
         return listaLibros;
     }
 
-    public void guardarTodos(List<Libro> libros) {
+    public void guardarLibrosArchivo(List<Libro> libros) {
         // Usar 'false' en FileWriter para sobrescribir el archivo por completo
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(RUTA_ARCHIVO, false))) {
             for (Libro libro : libros) {

@@ -65,7 +65,7 @@ public class LibrosControlador {
         String stock = "1";
         Libro nuevoLibro = new Libro(nuevoId, titulo, categoria, autor, edicion, stock);
         this.listaLibros.add(nuevoLibro);
-        this.libroAD.guardarTodos(this.listaLibros);
+        this.libroAD.guardarLibrosArchivo(this.listaLibros);
 
         return "Libro registrado correctamente";
     }
@@ -86,7 +86,7 @@ public class LibrosControlador {
         
         if (libroAEliminar != null) {
             this.listaLibros.remove(libroAEliminar);
-            this.libroAD.guardarTodos(this.listaLibros);
+            this.libroAD.guardarLibrosArchivo(this.listaLibros);
             return "Libro eliminado correctamente.";
         } else {
             return "E: No se encontró un libro con ese ID.";
@@ -116,7 +116,7 @@ public class LibrosControlador {
             libroAModificar.setAutor(nuevoAutor);
             libroAModificar.setEdicion(nuevaEdicion);
             
-            this.libroAD.guardarTodos(this.listaLibros);
+            this.libroAD.guardarLibrosArchivo(this.listaLibros);
             return "Libro modificado correctamente.";
         } else {
             return "E: No se encontró un libro con ese ID.";

@@ -3,7 +3,7 @@ package componentes;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class JTextEntero extends JTextField implements KeyListener {
@@ -32,10 +32,10 @@ public class JTextEntero extends JTextField implements KeyListener {
 
     public void keyReleased (KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-            JOptionPane.showMessageDialog(this,"BackSpace");
+            //JOptionPane.showMessageDialog(this,"BackSpace");
         }
         if(e.getKeyCode() == KeyEvent.VK_DELETE){
-            JOptionPane.showMessageDialog(this,"Delete");
+            //JOptionPane.showMessageDialog(this,"Delete");
         }
 
     }

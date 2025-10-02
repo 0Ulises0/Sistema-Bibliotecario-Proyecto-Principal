@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import LogicasPrestamo.PrestamosControlador;
 import componentes.JTextEntero;
 import objetos.Libro;
 import objetos.Prestamos;
@@ -53,6 +54,12 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
 
     private JLabel titulo;
 
+    private static final int ANCHO_VENTANA = 1366;
+    private static final int ALTO_VENTANA = 768;
+    private static final String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
+
+    private final PrestamosControlador controlador;
+
     //contenedores
     private JPanel contenedorOpcionesEste, contenedorOpcionesOeste, contenedorOpcionesCentro, contenedorOpcionesNorte;
 
@@ -61,8 +68,11 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     
     //Creando la Pantalla para el Préstamo y Devolución de Libros
     public PantallaPrestamoDevolucionLibros(String titulo){
+
+        this.controlador = new PrestamosControlador();
+
         setTitle(titulo);
-        setSize(1366,768);
+        setSize(ANCHO_VENTANA, ALTO_VENTANA);
         setLocationRelativeTo(null);
 
         contenedorNorte();
@@ -101,8 +111,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         add(contenedorOpcionesNorte, BorderLayout.NORTH);
     }
 
-    private void componentesPrestamos()
-    {
+    private void componentesPrestamos(){
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(10,10,10,10);
@@ -138,8 +147,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         contenedorOpcionesOeste.add(registrarPrestamo,gbc);
         registrarPrestamo.addActionListener(this);
     }
-    private void componentesDevoluciones()
-    {
+    private void componentesDevoluciones(){
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(10,10,10,10);
@@ -184,8 +192,7 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         contenedorOpcionesCentro.add(devolverP, gbc);
         devolverP.addActionListener(this);
     }
-    private void componentesTabla()
-    {
+    private void componentesTabla(){
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(10,10,10,10);  
@@ -233,17 +240,15 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
-
         tablaPrestamos = new JTable(cargarTabla(),columnas);
         scrollPrestamos = new JScrollPane(tablaPrestamos);
 
         contenedorOpcionesEste.add(scrollPrestamos, gbc);
     }
     private void componentesContenedorNorte(){
-    titulo = new JLabel("Registro de Prestamos y Devoluciones");
-    titulo.setFont(new Font("Arial", Font.PLAIN, 36));
-    contenedorOpcionesNorte.add(titulo); 
+        titulo = new JLabel("Registro de Prestamos y Devoluciones");
+        titulo.setFont(new Font("Arial", Font.PLAIN, 36));
+        contenedorOpcionesNorte.add(titulo); 
     }
 
     //Metodo para leer los libros del archivo libros.txt
@@ -294,7 +299,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     }
     //Metodo para actualizar la tabla de prestamos
     public void actualizarTablaDesdeArchivo() {
-        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
         tablaPrestamos.setModel(new DefaultTableModel(cargarTabla(), columnas));
     }
     //Metodo para leer la informacion de los prestamos y retornarlo en matriz
@@ -369,7 +373,6 @@ public class PantallaPrestamoDevolucionLibros extends JFrame implements ActionLi
     //Metodo para buscar por ID Usuario en la tabla
     public void buscarLibroPorIdUsuarioPrestamoEnTabla(String idUsuario) {
         List<Prestamos> prestamos = leerPrestamosArchivo();
-        String[] columnas = {"ID Préstamo", "ID Usuario", "ID Libro", "Fecha", "Estado"};
         List<Prestamos> resultado = new ArrayList<>();
 
         for (Prestamos prestamo : prestamos) {
